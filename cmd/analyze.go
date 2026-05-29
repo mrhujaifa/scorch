@@ -5,6 +5,7 @@ import (
 
 	"github.com/mrhujaifa/scorch/internal/analyzer"
 	"github.com/mrhujaifa/scorch/internal/git"
+	"github.com/mrhujaifa/scorch/internal/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -25,9 +26,10 @@ var analyzeCmd = &cobra.Command{
 			fmt.Println("failed to calc falme score")
 		}
 
-		for _, score := range calcFlames {
-			fmt.Printf("🔥 %s → Flame: %d\n", score.FilePath, score.FlameScore)
-		}
+		calcFlames = analyzer.FilterCodeFiles(calcFlames)
+		calcFlames = analyzer.SortByFlame(calcFlames)
+
+		ui.RenderAnalysis(calcFlames)
 	},
 }
 
