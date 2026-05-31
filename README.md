@@ -181,19 +181,23 @@ scorch suggest --limit 3
 
 | Command | Status | Description |
 |---------|--------|-------------|
-| `scorch analyze` | ✅ Available | Codebase flame map |
-| `scorch suggest` | ✅ Available | Refactoring priorities |
-| `scorch health` | 🔨 In Progress | Project health score 0-100 |
-| `scorch file <path>` | 🔨 In Progress | Single file deep dive |
-| `scorch coupling` | 📋 Planned | Hidden dependency detection |
-| `scorch who` | 📋 Planned | Knowledge ownership map |
-| `scorch impact <file>` | 📋 Planned | Blast radius before touching a file |
+| `scorch analyze` | ✅ Available | Codebase flame map — files ranked by risk |
+| `scorch suggest` | ✅ Available | Refactoring priorities — fix these first |
+| `scorch health` | 🔨 In Progress | Project health score 0-100 with trend |
+| `scorch file <path>` | 🔨 In Progress | Single file deep dive — timeline, owners, bug pattern |
+| `scorch coupling` | 📋 Planned | Hidden dependency detection — files that always change together |
+| `scorch who` | 📋 Planned | Knowledge ownership map — who knows what |
+| `scorch hotspot` | 📋 Planned | Activity heatmap — most active files in last N days |
+| `scorch blame-func <file>` | 📋 Planned | Function-level flame score — exactly where bugs come from |
+| `scorch impact <file>` | 📋 Planned | Blast radius — what breaks if you touch this file |
 | `scorch predict` | 📋 Planned | 30-day bug probability forecast |
-| `scorch onboard` | 📋 Planned | New developer codebase guide |
-| `scorch debt` | 📋 Planned | Technical debt estimator |
-| `scorch bus-factor` | 📋 Planned | Team knowledge risk analysis |
-| `scorch guardian` | 🤖 AI Feature | Real-time change safety net |
-| `scorch explain <file>` | 🤖 AI Feature | AI-powered risk explanation |
+| `scorch timeline <file>` | 📋 Planned | Bug pattern timeline — when and why bugs repeat |
+| `scorch onboard` | 📋 Planned | New developer codebase guide — where to start, what to avoid |
+| `scorch debt` | 📋 Planned | Technical debt estimator with time estimates |
+| `scorch bus-factor` | 📋 Planned | Team knowledge risk — what happens if someone leaves |
+| `scorch guardian` | 🤖 AI Feature | Real-time change safety net — AI warns before you break things |
+| `scorch review <PR>` | 🤖 AI Feature | AI-powered PR risk analysis |
+| `scorch explain <file>` | 🤖 AI Feature | AI explains why a file is risky and how to fix it |
 
 ---
 
