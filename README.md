@@ -104,7 +104,7 @@ scorch analyze
 
 ## Commands
 
-### `scorch analyze`
+### `$ scorch analyze`
 Scan your entire codebase and display a flame map — files ranked by risk level.
 
 ```bash
@@ -138,7 +138,7 @@ scorch analyze
 
 ---
 
-### `scorch suggest`
+### `$ scorch suggest`
 Get a prioritized list of files to refactor — ranked by maximum impact.
 
 ```bash
