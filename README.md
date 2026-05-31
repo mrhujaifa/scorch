@@ -1,77 +1,242 @@
-# Scorch ⚡
+<div align="center">
 
-> Analyze your Git history and uncover the files that burn your project.
+# ⚡ Scorch
 
-Scorch is a lightweight CLI tool that identifies high-risk files in your repository by combining code churn with bug-fix history. It helps developers and teams prioritize refactoring, reduce technical debt, and focus on the files that matter most.
+**Find where your codebase burns.**
 
-## What Scorch Solves
+Scorch analyzes your git history to identify the most dangerous files in your codebase — files that change frequently and cause the most bugs, ranked by risk.
 
-- Find the files that change most often and attract the most bug fixes
-- Rank dangerous areas of the codebase by impact
-- Turn Git history into actionable refactoring guidance
-- Use a zero-setup CLI tool instead of heavy analysis platforms
+[![GitHub release](https://img.shields.io/github/v/release/mrhujaifa/scorch?style=flat-square&color=orange)](https://github.com/mrhujaifa/scorch/releases/latest)
+[![GitHub stars](https://img.shields.io/github/stars/mrhujaifa/scorch?style=flat-square&color=yellow)](https://github.com/mrhujaifa/scorch/stargazers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Go version](https://img.shields.io/github/go-mod/go-version/mrhujaifa/scorch?style=flat-square)](go.mod)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/mrhujaifa/scorch/pulls)
 
-## Key Features
+![demo](demo.gif)
 
-- `scorch analyze` — build a flame score map from Git history
-- `scorch suggest` — get prioritized refactoring recommendations
-- Code-aware filtering for common source file types
-- CLI-first workflow for fast adoption in developer environments
+</div>
 
-## Why Use Scorch
+---
 
-- **Minimal setup** — works directly in any Git repository
-- **Free and open source** — no server or license barrier
-- **Developer-friendly** — designed for fast insights and clear next steps
-- **Actionable output** — suggests what to fix first, not just what is broken
+## The Problem
+
+Every developer has faced this:
+
+> *"This codebase keeps breaking. But where do I start fixing it?"*
+
+Finding high-risk areas manually means reading thousands of commits — nobody does that. Scorch does it in milliseconds.
+
+---
+
+## How It Works
+
+Scorch calculates a **Flame Score** for every file in your repository:
+
+```
+Flame Score = Churn × Bug Fixes
+
+Churn     →  how many times the file was changed
+Bug Fixes →  how many commits touched this file with fix/bug/hotfix keywords
+```
+
+**High Flame Score = dangerous file that needs your attention.**
+
+---
+
+## Why Scorch
+
+| Tool | Cost | Setup | Works Offline | CLI |
+|------|------|-------|---------------|-----|
+| CodeScene | $300/month | Complex | ❌ | ❌ |
+| SonarQube | Free/Paid | Server needed | ❌ | ❌ |
+| GitLens | Free/Paid | VS Code only | ✅ | ❌ |
+| **Scorch** | **Free** | **Zero config** | **✅** | **✅** |
+
+---
 
 ## Installation
+
+### Option 1 — Go Install (Recommended)
 
 ```bash
 go install github.com/mrhujaifa/scorch@latest
 ```
 
+### Option 2 — Manual Download (No Go required)
+
+**macOS / Linux:**
+```bash
+# macOS (Apple Silicon)
+curl -sSL https://github.com/mrhujaifa/scorch/releases/latest/download/scorch_Darwin_arm64.tar.gz | tar -xz
+sudo mv scorch /usr/local/bin/
+
+# macOS (Intel)
+curl -sSL https://github.com/mrhujaifa/scorch/releases/latest/download/scorch_Darwin_x86_64.tar.gz | tar -xz
+sudo mv scorch /usr/local/bin/
+
+# Linux
+curl -sSL https://github.com/mrhujaifa/scorch/releases/latest/download/scorch_Linux_x86_64.tar.gz | tar -xz
+sudo mv scorch /usr/local/bin/
+```
+
+**Windows:**
+1. Go to [Releases](https://github.com/mrhujaifa/scorch/releases/latest)
+2. Download `scorch_Windows_x86_64.zip`
+3. Extract and add `scorch.exe` to your PATH
+
+**Verify installation:**
+```bash
+scorch --version
+```
+
+---
+
 ## Usage
 
-```bash
-# Analyze your repository and print the flame map
-scorch analyze
+Scorch works with **any git repository** — Go, JavaScript, Python, Java, or any language.
 
-# Show the top refactoring suggestions
+```bash
+cd your-project
+scorch analyze
+```
+
+---
+
+## Commands
+
+### `scorch analyze`
+Scan your entire codebase and display a flame map — files ranked by risk level.
+
+```bash
+scorch analyze
+```
+
+```
+  SCORCH — Codebase Risk Analysis
+  Analyzing git history to find dangerous files
+
+  Files scanned: 17  |  Commits analyzed via git history
+
+  ─────────────────────────────────────────────────────────────────
+  RISK    FILE                                     SCORE
+  ─────────────────────────────────────────────────────────────────
+  HIGH    internal/app/app.go                         45 ██████████
+  MED     internal/auth/middleware.go                 12 ████░░░░░░
+  LOW     utils/helpers.go                             1 █░░░░░░░░░
+  ─────────────────────────────────────────────────────────────────
+  Total:   High: 1   Med: 1   Low: 15
+
+  ! Action needed: Run `scorch suggest` to see refactor priorities
+```
+
+**Risk Levels:**
+| Level | Flame Score | Meaning |
+|-------|-------------|---------|
+| HIGH | ≥ 10 | Frequently changed, historically bug-prone. Act now. |
+| MED | ≥ 4 | Moderate risk. Review carefully before touching. |
+| LOW | < 4 | Stable. No immediate action needed. |
+
+---
+
+### `scorch suggest`
+Get a prioritized list of files to refactor — ranked by maximum impact.
+
+```bash
+# Top 5 suggestions (default)
 scorch suggest
 
-# Limit suggestions to only the top 3 files
+# Custom limit
+scorch suggest --limit 10
 scorch suggest --limit 3
 ```
 
-## Example Output
+```
+  SCORCH — Refactoring Suggestions
+  Files ranked by impact — fix these first
 
-```text
-SCORCH — Refactoring Suggestions
-Files ranked by impact — fix these first
-
-  #1  internal/analyzer/flame.go
-      Flame: 24  Changes: 12  Bug Fixes: 2
+  ─────────────────────────────────────────────────────────────────
+  #1  internal/app/app.go
+      Flame: 45  Changes: 120  Bug Fixes: 23
       → High change frequency with recurring bugs. Refactor immediately.
 
-  #2  cmd/suggest.go
-      Flame: 15  Changes: 10  Bug Fixes: 1
+  #2  internal/auth/middleware.go
+      Flame: 12  Changes: 67  Bug Fixes: 8
       → Historically bug-prone. Review carefully before next change.
+
+  #3  services/payment/handler.go
+      Flame: 8   Changes: 45  Bug Fixes: 5
+      → Mildly active. Monitor but no immediate action needed.
+  ─────────────────────────────────────────────────────────────────
+  Run `scorch file <path>` for deep dive into any file
 ```
+
+**Flags:**
+| Flag | Short | Default | Description |
+|------|-------|---------|-------------|
+| `--limit` | `-l` | `5` | Number of suggestions to show (1-50) |
+
+---
 
 ## Roadmap
 
-- [x] `scorch analyze` — codebase flame map
-- [x] `scorch suggest` — refactoring priorities
-- [ ] `scorch health` — project health score
-- [ ] `scorch file` — single file deep dive
-- [ ] `scorch impact` — blast radius analysis
-- [ ] `scorch predict` — bug prediction
+| Command | Status | Description |
+|---------|--------|-------------|
+| `scorch analyze` | ✅ Available | Codebase flame map |
+| `scorch suggest` | ✅ Available | Refactoring priorities |
+| `scorch health` | 🔨 In Progress | Project health score 0-100 |
+| `scorch file <path>` | 🔨 In Progress | Single file deep dive |
+| `scorch coupling` | 📋 Planned | Hidden dependency detection |
+| `scorch who` | 📋 Planned | Knowledge ownership map |
+| `scorch impact <file>` | 📋 Planned | Blast radius before touching a file |
+| `scorch predict` | 📋 Planned | 30-day bug probability forecast |
+| `scorch onboard` | 📋 Planned | New developer codebase guide |
+| `scorch debt` | 📋 Planned | Technical debt estimator |
+| `scorch bus-factor` | 📋 Planned | Team knowledge risk analysis |
+| `scorch guardian` | 🤖 AI Feature | Real-time change safety net |
+| `scorch explain <file>` | 🤖 AI Feature | AI-powered risk explanation |
+
+---
+
+## Who Is Scorch For
+
+- **Junior Developers** — Understand a new codebase in minutes, not weeks
+- **Senior Developers** — Make data-driven refactoring decisions
+- **Tech Leads** — Identify team knowledge silos and technical debt
+- **Code Reviewers** — Get historical context before reviewing a PR
+- **Open Source Contributors** — Find where help is needed most
+
+---
+
+## Supported Languages
+
+Scorch analyzes any git repository regardless of language. File filtering supports:
+
+`.go` `.js` `.jsx` `.ts` `.tsx` `.py` `.java` `.rs` `.c` `.cpp` `.rb` `.php` `.swift` `.kt` `.vue` `.svelte`
+
+---
 
 ## Contributing
 
-Bug reports, feature requests, and pull requests are welcome. If you want to improve Scorch, start by opening an issue or submitting a PR.
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feat/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feat/amazing-feature`)
+5. Open a Pull Request
+
+---
 
 ## License
 
-MIT © Md. Hujaifa Islam Shanto
+MIT © [Md. Hujaifa Islam Shanto](https://github.com/mrhujaifa)
+
+---
+
+<div align="center">
+
+**If Scorch helped you, please consider giving it a ⭐**
+
+[Report Bug](https://github.com/mrhujaifa/scorch/issues) · [Request Feature](https://github.com/mrhujaifa/scorch/issues) · [Discussions](https://github.com/mrhujaifa/scorch/discussions)
+
+</div>
