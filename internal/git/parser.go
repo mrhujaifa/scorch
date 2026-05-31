@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -14,6 +15,8 @@ type CommitData struct {
 	Message string
 	IsBug   bool
 	Files   []string
+	Author  string    // ← add
+	Date    time.Time // ← add
 }
 
 var BugKeywords = []string{
@@ -71,6 +74,8 @@ func ParseRepository(repoPath string) ([]CommitData, error) {
 			Message: commit.Message,
 			IsBug:   IsBugCommit(commit.Message),
 			Files:   files,
+			Author:  commit.Author.Name,
+			Date:    commit.Author.When,
 		}
 
 		result = append(result, data)
