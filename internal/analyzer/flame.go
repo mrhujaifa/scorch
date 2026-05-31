@@ -4,8 +4,8 @@ import (
 	"path/filepath"
 	"sort"
 
-	"github.com/mrhujaifa/scorch/internal/git"
-	"github.com/mrhujaifa/scorch/pkg/models"
+	"github.com/mrhujaifa/flamekit/internal/git"
+	"github.com/mrhujaifa/flamekit/pkg/models"
 )
 
 func CalculateFlameScores(commits []git.CommitData) ([]models.FileScore, error) {

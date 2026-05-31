@@ -4,14 +4,14 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mrhujaifa/scorch/pkg/models"
+	"github.com/mrhujaifa/flamekit/pkg/models"
 )
 
 func RenderAnalysis(scores []models.FileScore) {
 	high, med, low := countRisks(scores)
 
 	fmt.Println()
-	fmt.Println(headerStyle.Render("  SCORCH — Codebase Risk Analysis"))
+	fmt.Println(headerStyle.Render("  FLAMEKIT — Codebase Risk Analysis"))
 	fmt.Println(subStyle.Render("  Analyzing git history to find dangerous files"))
 	fmt.Println()
 
@@ -51,7 +51,7 @@ func RenderAnalysis(scores []models.FileScore) {
 	fmt.Println()
 
 	if high > 0 {
-		fmt.Println(highStyle.Render("  ! Action needed: Run `scorch suggest` to see refactor priorities"))
+		fmt.Println(highStyle.Render("  ! Action needed: Run `flamekit suggest` to see refactor priorities"))
 	} else {
 		fmt.Println(lowStyle.Render("  ✓ Codebase looks healthy"))
 	}

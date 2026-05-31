@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If you find a security issue in Scorch, please report it responsibly:
+If you find a security issue in Flamekit, please report it responsibly:
 
 1. Open an issue with the label `security` and mark it as private if the platform supports it.
 2. If you prefer private communication, send a message to the project maintainer via the repository contact or email.
@@ -11,7 +11,7 @@ Do not post security issues publicly until a fix is available.
 
 ## Supported Versions
 
-We actively support the latest released version of Scorch and the previous minor release. Security fixes are prioritized for these supported versions.
+We actively support the latest released version of Flamekit and the previous minor release. Security fixes are prioritized for these supported versions.
 
 ## Response Process
 

@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mrhujaifa/scorch/pkg/models"
+	"github.com/mrhujaifa/flamekit/pkg/models"
 )
 
 func RenderSuggestions(scores []models.FileScore) {
 	fmt.Println()
-	fmt.Println(headerStyle.Render("  SCORCH — Refactoring Suggestions"))
+	fmt.Println(headerStyle.Render("  FLAMEKIT — Refactoring Suggestions"))
 	fmt.Println(subStyle.Render("  Files ranked by impact — fix these first"))
 	fmt.Println()
 	fmt.Println(strings.Repeat("─", 65))
@@ -36,7 +36,7 @@ func RenderSuggestions(scores []models.FileScore) {
 	}
 
 	fmt.Println(strings.Repeat("─", 65))
-	fmt.Println(subStyle.Render("  Run `scorch file <path>` for deep dive into any file"))
+	fmt.Println(subStyle.Render("  Run `flamekit file <path>` for deep dive into any file"))
 	fmt.Println()
 }
 

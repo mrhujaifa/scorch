@@ -1,4 +1,4 @@
-module github.com/mrhujaifa/scorch
+module github.com/mrhujaifa/flamekit
 
 go 1.26.1
 

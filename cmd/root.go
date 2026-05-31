@@ -7,9 +7,9 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "scorch",
+	Use:   "flamekit",
 	Short: "Find where your codebase burns",
-	Long:  "Scorch analyzes your git history to find the most dangerous files in your codebase.",
+	Long:  "Flamekit analyzes your git history to find the most dangerous files in your codebase.",
 }
 
 func Execute() {

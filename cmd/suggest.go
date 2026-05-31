@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/mrhujaifa/scorch/internal/analyzer"
-	"github.com/mrhujaifa/scorch/internal/git"
-	"github.com/mrhujaifa/scorch/internal/ui"
+	"github.com/mrhujaifa/flamekit/internal/analyzer"
+	"github.com/mrhujaifa/flamekit/internal/git"
+	"github.com/mrhujaifa/flamekit/internal/ui"
 	"github.com/spf13/cobra"
 )
 
@@ -16,9 +16,9 @@ var suggestCmd = &cobra.Command{
 	Use:   "suggest",
 	Short: "Get prioritized refactoring suggestions",
 	Long:  "Analyzes git history and suggests which files to refactor first for maximum impact.",
-	Example: `  scorch suggest
-  scorch suggest --limit 10
-  scorch suggest --limit 3`,
+	Example: `  flamekit suggest
+  flamekit suggest --limit 10
+  flamekit suggest --limit 3`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		// validation
 		if suggestLimit < 1 {

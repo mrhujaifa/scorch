@@ -1,6 +1,6 @@
-# Contributing to Scorch
+# Contributing to Flamekit
 
-Thanks for your interest in improving Scorch! This document explains how to contribute, report issues, and submit changes.
+Thanks for your interest in improving Flamekit! This document explains how to contribute, report issues, and submit changes.
 
 ## How to Contribute
 
@@ -53,10 +53,10 @@ When opening an issue, please include:
 
 ## Development Workflow
 
-- `scorch analyze` and `scorch suggest` are the current working commands.
+- `flamekit analyze` and `flamekit suggest` are the current working commands.
 - New commands should follow the existing cobra-based CLI structure.
 - Add documentation for any new feature in `README.md`.
 
 ## Thank You
 
-Contributions make Scorch better for everyone. Your fixes, ideas, and reviews are appreciated.
+Contributions make Flamekit better for everyone. Your fixes, ideas, and reviews are appreciated.

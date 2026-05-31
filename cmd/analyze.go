@@ -3,9 +3,9 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/mrhujaifa/scorch/internal/analyzer"
-	"github.com/mrhujaifa/scorch/internal/git"
-	"github.com/mrhujaifa/scorch/internal/ui"
+	"github.com/mrhujaifa/flamekit/internal/analyzer"
+	"github.com/mrhujaifa/flamekit/internal/git"
+	"github.com/mrhujaifa/flamekit/internal/ui"
 	"github.com/spf13/cobra"
 )
 
