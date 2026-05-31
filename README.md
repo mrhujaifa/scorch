@@ -104,7 +104,7 @@ flamekit analyze
 
 ## Commands
 
-### `flamekit analyze`
+### `$ flamekit analyze`
 Scan your entire codebase and display a flame map — files ranked by risk level.
 
 ```bash
@@ -138,44 +138,83 @@ flamekit analyze
 
 ---
 
-### `flamekit suggest`
-Get a prioritized list of files to refactor — ranked by maximum impact.
+### `$ flamekit suggest`
+Get a prioritized list of files to refactor — ranked by maximum impact, with effort estimates and ownership data.
 
 ```bash
 # Top 5 suggestions (default)
-flamekit suggest
+$ flamekit suggest
 
 # Custom limit
-flamekit suggest --limit 10
-flamekit suggest --limit 3
+$ flamekit suggest --limit 10
+
+# Show all risky files
+$ flamekit suggest --all
+
+# Analyze specific repository
+$ flamekit suggest --path /path/to/repo
 ```
 
 ```
-  flamekit — Refactoring Suggestions
+  Analyzing repository...
+
+  FLAMEKIT — Refactoring Suggestions
   Files ranked by impact — fix these first
 
-  ─────────────────────────────────────────────────────────────────
+  ──────────────────────────────────────────────────────────────────────
   #1  internal/app/app.go
-      Flame: 45  Changes: 120  Bug Fixes: 23
-      → High change frequency with recurring bugs. Refactor immediately.
+  ──────────────────────────────────────────────────────────────────────
+      Metrics        Flame: 45  Changes: 120  Bug Fixes: 23
+      Last changed   2 days ago  ⚠ Recently modified
+      Last bug       2 days ago  ✕ Active bug area
+      Best person    Rahim (78% ownership)
+
+      Est. effort    ~3-4 hours
+      Risk reduction ~40% fewer bugs
+      Priority score 90/100
+
+      → Modified 120 times with 23 bug fixes — highly unstable.
+        Core logic likely needs redesign.
+
+      Next steps:
+        $ flamekit file internal/app/app.go
+        $ flamekit impact internal/app/app.go
 
   #2  internal/auth/middleware.go
-      Flame: 12  Changes: 67  Bug Fixes: 8
-      → Historically bug-prone. Review carefully before next change.
+  ──────────────────────────────────────────────────────────────────────
+      Metrics        Flame: 12  Changes: 67  Bug Fixes: 8
+      Last changed   5 days ago
+      Last bug       5 days ago  ⚠ Recent bug
+      Best person    Karim (65% ownership)
 
-  #3  services/payment/handler.go
-      Flame: 8   Changes: 45  Bug Fixes: 5
-      → Mildly active. Monitor but no immediate action needed.
-  ─────────────────────────────────────────────────────────────────
-  Run `flamekit file <path>` for deep dive into any file
+      Est. effort    ~1-2 hours
+      Risk reduction ~25% fewer bugs
+      Priority score 24/100
+
+      → Only 67 changes but 8 bug fixes — every touch breaks something.
+        Fragile logic, handle with care.
+
+      Next steps:
+        $ flamekit file internal/auth/middleware.go
+        $ flamekit impact internal/auth/middleware.go
+
+  ──────────────────────────────────────────────────────────────────────
+  Total ROI if all fixed:  ~6 hours work → ~65% bug reduction
+  ──────────────────────────────────────────────────────────────────────
+  Run `flamekit suggest --all` to see all risky files
 ```
 
 **Flags:**
+
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
-| `--limit` | `-l` | `5` | Number of suggestions to show (1-50) |
+| `--limit` | `-l` | `5` | Number of suggestions to show (1-100) |
+| `--path` | `-p` | `.` | Path to git repository |
+| `--all` | — | `false` | Show all risky files without limit |
 
 ---
+
+
 
 ## Roadmap
 
