@@ -111,7 +111,7 @@ flamekit analyze
 Scan your entire codebase and display a flame map — files ranked by risk level.
 
 ```bash
-flamekit analyze
+$ flamekit analyze
 ```
 
 ```
@@ -131,15 +131,6 @@ flamekit analyze
 
   ! Action needed: Run `flamekit suggest` to see refactor priorities
 ```
-
-**Risk Levels:**
-| Level | Flame Score | Meaning |
-|-------|-------------|---------|
-| HIGH | ≥ 10 | Frequently changed, historically bug-prone. Act now. |
-| MED | ≥ 4 | Moderate risk. Review carefully before touching. |
-| LOW | < 4 | Stable. No immediate action needed. |
-
----
 
 ### `$ flamekit suggest`
 Get a prioritized list of files to refactor — ranked by maximum impact, with effort estimates and ownership data.
@@ -216,16 +207,84 @@ $ flamekit suggest --path /path/to/repo
 | `--all` | — | `false` | Show all risky files without limit |
 
 ---
+### `$ flamekit health`
+Analyze your project's overall health score, trend, and velocity risk — all from git history.
 
+```bash
+# Current directory
+$ flamekit health
 
+# Specific repository
+$ flamekit health --path /path/to/repo
+```
 
+```
+  FLAMEKIT — Project Health Report
+  Behavioral analysis from git history · 100% local & private
+  ─────────────────────────────────────────────────────────────────
+
+  Health Score   58/100  █████░░░░░  ⚠ WARNING
+
+  ─────────────────────────────────────────────────────────────────
+  TREND  (last 4 months)
+  ─────────────────────────────────────────────────────────────────
+  3 months ago    82  ████████░░
+  2 months ago    71  ███████░░░  ↓ -11
+  Last month      63  ██████░░░░  ↓ -8
+  Now             58  █████░░░░░  ↓ -5
+
+  ! Declining 8 points/month on average
+  ! Predicted next month: 50/100  ⚠ Approaching CRITICAL
+
+  ─────────────────────────────────────────────────────────────────
+  VELOCITY RISK  (last 30 days)
+  ─────────────────────────────────────────────────────────────────
+  Bug rate:            35%
+  Trend:               ↑ Increasing
+  Risk threshold:      CRITICAL in ~6 weeks
+
+  ! Recommendation: Freeze new features, focus on stability
+
+  ─────────────────────────────────────────────────────────────────
+  STABILITY INDEX
+  ─────────────────────────────────────────────────────────────────
+  Files analyzed:      142
+  Dangerous files:     3
+  Watch list:          50
+  Healthy files:       89
+
+  Top destabilizers:
+    internal/auth/middleware.go   → Flame: 45
+    services/payment/handler.go  → Flame: 32
+    internal/user/service.go     → Flame: 18
+
+  ─────────────────────────────────────────────────────────────────
+  Run `flamekit suggest` to see refactoring priorities
+```
+
+**Flags:**
+
+| Flag | Short | Default | Description |
+|------|-------|---------|-------------|
+| `--path` | `-p` | `.` | Path to git repository |
+
+**Health Score Levels:**
+
+| Score | Status | Meaning |
+|-------|--------|---------|
+| 80-100 | ✓ HEALTHY | Low risk, codebase is stable |
+| 60-79 | ⚠ WARNING | Some risk areas, monitor closely |
+| 40-59 | ⚠ DECLINING | Health dropping, action needed |
+| 0-39 | ✕ CRITICAL | High risk, immediate action required |
+
+```
 ## Roadmap
 
 | Command | Status | Description |
 |---------|--------|-------------|
 | `flamekit analyze` | ✅ Available | Codebase flame map |
 | `flamekit suggest` | ✅ Available | Refactoring priorities |
-| `flamekit health` | 🔨 In Progress | Project health score 0-100 |
+| `flamekit health`  | ✅ Available | Project health score 0-100 |
 | `flamekit file <path>` | 🔨 In Progress | Single file deep dive |
 | `flamekit coupling` | 📋 Planned | Hidden dependency detection |
 | `flamekit who` | 📋 Planned | Knowledge ownership map |
