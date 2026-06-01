@@ -1,10 +1,14 @@
 <div align="center">
 
-# ⚡ flamekit
+<img src="https://i.postimg.cc/htBBLfKZ/Gemini-Generated-Image-v3zjoxv3zjoxv3zj-(1)-jukebox-bg-removed.png" alt="FlameKit Logo" width="150" />
+
+
 
 **Find where your codebase burns.**
 
 flamekit analyzes your git history to identify the most dangerous files in your codebase — files that change frequently and cause the most bugs, ranked by risk.
+
+</div>
 
 [![GitHub release](https://img.shields.io/github/v/release/mrhujaifa/flamekit?style=flat-square&color=orange)](https://github.com/mrhujaifa/flamekit/releases/latest)
 [![GitHub stars](https://img.shields.io/github/stars/mrhujaifa/flamekit?style=flat-square&color=yellow)](https://github.com/mrhujaifa/flamekit/stargazers)
