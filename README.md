@@ -277,7 +277,6 @@ $ flamekit health --path /path/to/repo
 | 40-59 | ⚠ DECLINING | Health dropping, action needed |
 | 0-39 | ✕ CRITICAL | High risk, immediate action required |
 
-```
 ## Roadmap
 
 | Command | Status | Description |
