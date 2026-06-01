@@ -7,9 +7,10 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "flamekit",
-	Short: "Find where your codebase burns",
-	Long:  "Flamekit analyzes your git history to find the most dangerous files in your codebase.",
+	Use:     "flamekit",
+	Short:   "Find where your codebase burns",
+	Long:    "Flamekit analyzes your git history to find the most dangerous files in your codebase.",
+	Version: "0.3.0",
 }
 
 func Execute() {
