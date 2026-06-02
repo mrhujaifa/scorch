@@ -56,7 +56,11 @@ Bug Fixes →  how many commits touched this file with fix/bug/hotfix keywords
 | **flamekit** | **Free** | **Zero config** | **✅** | **✅** |
 
 ---
+## Demo
 
+![flamekit demo](https://i.postimg.cc/q7mwgGfX/Animation.gif)
+
+---
 ## Installation
 
 ### Option 1 — Go Install (Recommended)
