@@ -32,24 +32,30 @@ type TrendPoint struct {
 }
 
 func CalculateScore(scores []models.FileScore) int {
-	penalty := 0
+	if len(scores) == 0 {
+		return 100
+	}
+
+	dangerous, watch := 0, 0
 	for _, s := range scores {
 		switch {
 		case s.FlameScore >= 10:
-			penalty += 10
+			dangerous++
 		case s.FlameScore >= 4:
-			penalty += 5
-		default:
-			penalty += 1
+			watch++
 		}
 	}
 
+	total := len(scores)
+	dangerPct := (dangerous * 100) / total
+	watchPct := (watch * 100) / total
+
+	penalty := (dangerPct * 7 / 10) + (watchPct * 3 / 10)
 	score := 100 - penalty
 
 	if score < 0 {
 		return 0
 	}
-
 	return score
 }
 
