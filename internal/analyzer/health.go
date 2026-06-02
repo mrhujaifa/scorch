@@ -176,12 +176,24 @@ func scoreAtTime(commits []git.CommitData, before time.Time) int {
 		}
 	}
 
-	// no commits at this time → perfect score
 	if len(filtered) == 0 {
 		return 100
 	}
 
 	scores, _ := CalculateFlameScores(filtered)
 	scores = FilterCodeFiles(scores)
+
+	hasRisk := false
+	for _, s := range scores {
+		if s.FlameScore > 0 {
+			hasRisk = true
+			break
+		}
+	}
+
+	if !hasRisk {
+		return 100
+	}
+
 	return CalculateScore(scores)
 }
